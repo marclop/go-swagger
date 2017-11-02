@@ -547,7 +547,7 @@ func nullableBool(schema *spec.Schema, isRequired bool) bool {
 		return *nullable
 	}
 	required := isRequired && schema.Default == nil && !schema.ReadOnly
-	optional := !isRequired && (schema.Default != nil || schema.ReadOnly)
+	optional := true
 
 	return required || optional
 }
@@ -665,6 +665,7 @@ func (t *typeResolver) ResolveSchema(schema *spec.Schema, isAnonymous, isRequire
 			result.IsPrimitive = true
 			result.IsCustomFormatter = false
 			result.IsNullable = nullableBool(schema, isRequired)
+			// result.IsNullable = true
 		case number, integer:
 			result.IsPrimitive = true
 			result.IsCustomFormatter = false
